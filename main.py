@@ -36,7 +36,7 @@ except Exception as e:
 
 @app.route("/")
 def index():
-    return "双方向翻訳APIサーバー (NLLBモデル) が起動しています。"
+    return "APIサーバーが起動しています。"
 
 @app.route("/api/translate/en-to-ja", methods=['POST'])
 def translate_en_to_ja():
