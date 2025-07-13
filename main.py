@@ -3,15 +3,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import pipeline
 
-# --------------------------------------------------------------------------
-# 1. Flaskアプリケーションの初期化
-# --------------------------------------------------------------------------
 app = Flask(__name__)
 CORS(app) 
 
-# --------------------------------------------------------------------------
-# 2. 【変更点】NLLBモデルの読み込み
-# --------------------------------------------------------------------------
 MODEL_NAME = "facebook/nllb-200-distilled-600M"
 print(f"サーバーを起動しています。NLLBモデル ({MODEL_NAME}) を読み込んでいます...")
 try:
@@ -39,9 +33,7 @@ except Exception as e:
     en_to_ja_translator = None
     ja_to_en_translator = None
 
-# --------------------------------------------------------------------------
-# 3. APIエンドポイント (変更なし)
-# --------------------------------------------------------------------------
+
 @app.route("/")
 def index():
     return "双方向翻訳APIサーバー (NLLBモデル) が起動しています。"
@@ -64,8 +56,5 @@ def translate_ja_to_en():
     result = ja_to_en_translator(text)
     return jsonify({"translated_text": result[0]['translation_text']})
 
-# --------------------------------------------------------------------------
-# 4. アプリケーションの実行 (変更なし)
-# --------------------------------------------------------------------------
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
